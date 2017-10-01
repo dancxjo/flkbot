@@ -1,0 +1,40 @@
+const irc = require('irc');
+const minNam = process.env.SPRAKAR_NAM || 'sprakMakin';
+const channelNam = process.env.SPRAKAR_NAM || '#my_test_room';
+const Matcher = require('../src/matcher');
+const wiktionary = require('node-wiktionary-translation')();
+
+const client = new irc.Client('irc.freenode.net', minNam, {channels: [channelNam]});
+
+client.addListener('invite', (channel, from, message) => client.join(channel, () => client.say(channel, 'Haj, timer!')));
+
+client.addListener('message', function (from, to, message) {
+    console.log(from + ' => ' + to + ': ' + message);
+    
+    const matcher = Matcher.directAddress(minNam);
+    matcher.match(message, matches => {
+        message = matches[0];
+        console.log('Received the message from', from, message);
+        client.say(to, `Du hav segt to mek, ${from}, "${message}"`);
+
+        const translator = Matcher.howDoYouSay(from);
+        matcher.match(message, matches => {
+            console.log('I need to translate this', matches);
+        });
+    }); 
+});
+
+client.addListener('pm', function (from, message) {
+    console.log(from + ' => ME: ' + message);
+    client.say(from, 'Ja. Ek ar har!');
+});
+
+client.addListener('error', function(message) {
+    console.log('error: ', message);
+});
+
+client.addListener('registered', function(message) {
+    console.log('registerd: ', message);
+});
+
+module.exports = client;

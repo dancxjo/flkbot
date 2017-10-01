@@ -1,0 +1,24 @@
+{
+  "name": "flkbot",
+  "version": "1.0.0",
+  "description": "A simple helper IRC bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "build": "babel src -d lib"
+  },
+  "author": "Travis Reed",
+  "license": "ISC",
+  "dependencies": {
+    "irc": "^0.5.2",
+    "node-wiktionary-translation": "^0.1.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2017": "^6.24.1",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^3.5.3"
+  }
+}
