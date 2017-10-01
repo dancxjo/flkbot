@@ -20,7 +20,7 @@ class Matcher {
 
     static howDoYouSay(interlocutor) {
         return new Matcher(
-            /Hur seg man de (.+?) vord "(.+?)" in (.+?)\?/i
+            /Hur seg man de (.+?) vord "(.+?)"(?: in (.+?))\?/i
         );
     }
 }

@@ -1,3 +1,1 @@
-var client = require('./lib/conversation');
-
-
+require('./lib');
